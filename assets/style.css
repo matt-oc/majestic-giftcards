@@ -1,0 +1,26 @@
+/* Fonts */
+@font-face {
+  font-family: 'Roboto';
+  src: url("fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("fonts/Roboto-Bold.ttf");
+  font-weight: bold;
+}
+
+/* Main elements */
+html {
+  width: 100%;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #312e33;
+  font-family: 'Roboto', monospace;
+  max-width: 100%;
+  position: relative;
+  height: 100%;
+}

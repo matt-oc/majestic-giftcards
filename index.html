@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net">
+
+  <title>Login</title>
+
+  <link rel="stylesheet" href="bootstrap/bootstrap-4.6.2-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <!-- Icons from Font Awesome-->
+  <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">
+</head>
+  <body>
+    <h1>Hello World!</h1>
+    We are using Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    and Electron <span id="electron-version"></span>.
+    <script>
+    if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }
+    </script>
+<script src="scripts/jquery.slim.min.js"></script>
+<script src="scripts/popper.min.js"></script>
+<script src="bootstrap/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts/scripts.js"></script>
+  </body>
+</html>

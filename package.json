@@ -1,0 +1,31 @@
+{
+  "name": "majestic-giftcards",
+  "version": "1.0.0",
+  "description": "App to integrate with Pixelpoint POS software for Gift Card management",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matt-oc/majestic-giftcards.git"
+  },
+  "keywords": [
+    "pixelpoint",
+    "SQL"
+  ],
+  "author": "matt-oc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matt-oc/majestic-giftcards/issues"
+  },
+  "homepage": "https://github.com/matt-oc/majestic-giftcards#readme",
+  "devDependencies": {
+    "electron": "33.2.1"
+  },
+  "dependencies": {
+    "jquery": "3.7.1",
+    "popper.js": "1.16.1"
+  }
+}
