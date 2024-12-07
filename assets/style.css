@@ -10,6 +10,11 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: 'Marcellus';
+  src: url("fonts/Marcellus-Regular.ttf");
+}
+
 /* Main elements */
 html {
   width: 100%;
@@ -18,9 +23,160 @@ html {
 }
 
 body {
-  color: #312e33;
+  color: #ffffff;
+  background-color: #13322B;
   font-family: 'Roboto', monospace;
   max-width: 100%;
   position: relative;
   height: 100%;
+  overflow-y: hidden;
+}
+
+h1 {
+  font-family: 'Marcellus';
+  font-size: 50px;
+  opacity: 1;
+  margin-bottom: -22px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 12px;
+}
+
+.red {
+  color: #cf0404;
+}
+
+.gold {
+  color: #D7B56D;
+}
+
+.black {
+  color: #000000;
+}
+
+.grey {
+  color: #4d4c4c
+}
+
+.header {
+  height: 100px;
+}
+
+
+.gift-card-icon {
+  font-size: 37px!important;
+}
+
+.login-container {
+  height: 100%;
+  z-index: 102;
+  background-color: #13322B;
+}
+
+.card-swipe-container {
+  position: absolute;
+  top: 116px;
+  height: 100%;
+  z-index: 100;
+  background-color: #13322B;
+}
+
+.input-group {
+  position: relative;
+  top: 140px;
+  height: fit-content;
+}
+
+.form-control {
+  padding: 40px;
+  font-size: 20px;
+  border-top-right-radius: .25rem!important;
+  border-bottom-right-radius: .25rem!important;
+}
+
+.form-control:focus {
+    background-color: #efe1c3;
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #ced4da;
+  }
+
+.input-group-text {
+  font-size: 20px;
+}
+
+.password-error {
+  color: #cf0404;
+  position: absolute;
+  bottom: -60px;
+  width: 100%;
+  text-align: center;
+  visibility: hidden;
+}
+
+.footer {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 200;
+}
+
+.lock-logo {
+  position: absolute;
+  font-size: 200px!important;
+  bottom: 300px;
+  opacity: 0.1;
+}
+
+.list-btn {
+  position: absolute;
+  top: 500px;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.modal-header, .modal-footer {
+  background-color: #e9ecef;
+}
+
+.rainbow {
+  background: linear-gradient(to right, #6666ff, #02b4c4, #025dc4, #ff3399, #6666ff);
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 6s ease-in-out infinite;
+    background-size: 400% 100%;
+}
+
+.dark-rainbow {
+  background: linear-gradient(to right, #1d242b, #1d1921, #000000, #D7B56D, #1d242b);
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 6s ease-in-out infinite;
+    background-size: 400% 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@keyframes rainbow_animation {
+    0%,100% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100% 0;
+    }
 }

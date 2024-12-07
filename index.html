@@ -13,20 +13,72 @@
   <!-- Icons from Font Awesome-->
   <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">
 </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-    <script>
+
+<body class="container-fluid vh-100">
+  <div class="row header align-items-center justify-content-center mt-4 mb-3">
+    <img src="assets/images/majestic-logo.svg" alt="majestic-logo" height="60px" class="mr-4">
+    <h1>Gift Card Manager<i class="gift-card-icon fa fa-sliders ml-3" aria-hidden="true"></i></h1>
+  </div>
+  <div class="row main-container justify-content-center vh-100">
+    <div class="row w-100 login-container justify-content-center mb-3">
+      <div class="input-group w-50 mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-unlock-alt mr-2 dark-rainbow" aria-hidden="true"></i>
+            Enter Pin to Unlock</span>
+        </div>
+        <input type="tel" class="form-control" placeholder="****" maxlength="4" id="pin-input">
+        <h2 class="password-error"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Incorrect Pin! Please try again</h2>
+      </div>
+      <i class="fa fa-lock lock-logo gold" aria-hidden="true"></i>
+    </div>
+    <div class="row w-100 card-swipe-container justify-content-center mb-3">
+      <div class="input-group w-50 mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-credit-card-alt mr-2 rainbow" aria-hidden="true"></i>
+            Swipe Card or Enter no.</span>
+        </div>
+        <input type="tel" class="form-control" placeholder="9XXXXXXX" maxlength="8" id="card-input">
+      </div>
+      <button type="button" class="btn btn-light list-btn" data-toggle="modal" data-target="#cards-modal"><i class="fa fa-th-list mr-2" aria-hidden="true"></i>
+View All Gift Cards</button>
+    </div>
+  </div>
+
+
+  <div class="footer">
+    <h3 id="version">Version: 1.0.0</h3>
+  </div>
+
+  <div class="modal fade" id="cards-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title grey" id="cards-modal-label">Gift Cards:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12 col-sm-12 d-flex justify-content-center">
+            <p> test</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
     if (typeof module === 'object') {
-        window.module = module;
-        module = undefined;
+      window.module = module;
+      module = undefined;
     }
-    </script>
-<script src="scripts/jquery.slim.min.js"></script>
-<script src="scripts/popper.min.js"></script>
-<script src="bootstrap/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js"></script>
+  </script>
+  <script src="scripts/jquery.slim.min.js"></script>
+  <script src="scripts/popper.min.js"></script>
+  <script src="bootstrap/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js"></script>
   <script src="scripts/scripts.js"></script>
-  </body>
+</body>
+
 </html>
