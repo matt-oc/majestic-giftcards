@@ -160,6 +160,7 @@ h3 {
 .dark-rainbow {
   background: linear-gradient(to right, #1d242b, #1d1921, #000000, #D7B56D, #1d242b);
     background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
     animation: rainbow_animation 6s ease-in-out infinite;
     background-size: 400% 100%;

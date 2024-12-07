@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/matt-oc/majestic-giftcards#readme",
   "devDependencies": {
-    "electron": "33.2.1"
+    "electron": "11.0.0"
   },
   "dependencies": {
     "jquery": "3.7.1",
