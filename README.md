@@ -13,3 +13,5 @@ https://wiki.scn.sap.com/wiki/plugins/servlet/mobile?contentId=448478814#content
 
 add contents of this to bash profile and to zshrc:
 source /Applications/SQLAnywhere17/System/bin64/sa_config.sh
+
+pin 5145

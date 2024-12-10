@@ -19,56 +19,138 @@
     <img src="assets/images/majestic-logo.svg" alt="majestic-logo" height="60px" class="mr-4">
     <h1>Gift Card Manager<i class="gift-card-icon fa fa-sliders ml-3" aria-hidden="true"></i></h1>
   </div>
+
   <div class="row main-container justify-content-center vh-100">
-    <div class="row w-100 login-container justify-content-center mb-3">
+
+    <div class="row w-100 login-container justify-content-center mb-3" id="login-container">
       <div class="input-group w-50 mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-unlock-alt mr-2 dark-rainbow" aria-hidden="true"></i>
             Enter Pin to Unlock</span>
         </div>
         <input type="tel" class="form-control" placeholder="****" maxlength="4" id="pin-input">
-        <h2 class="password-error"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Incorrect Pin! Please try again</h2>
+        <h2 class="password-error" id="password-error"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Incorrect Pin! Please try again</h2>
       </div>
       <i class="fa fa-lock lock-logo gold" aria-hidden="true"></i>
     </div>
-    <div class="row w-100 card-swipe-container justify-content-center mb-3">
+
+    <div class="row w-100 card-swipe-container justify-content-center mb-3" id="card-swipe-container">
       <div class="input-group w-50 mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-credit-card-alt mr-2 rainbow" aria-hidden="true"></i>
             Swipe Card or Enter no.</span>
         </div>
-        <input type="tel" class="form-control" placeholder="9XXXXXXX" maxlength="8" id="card-input">
+        <input type="text" class="form-control" placeholder="9XXXXXXX" maxlength="20" id="card-input">
+        <h2 class="password-error" id="card-error"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Incorrect card format! Please try again</h2>
       </div>
-      <button type="button" class="btn btn-light list-btn" data-toggle="modal" data-target="#cards-modal"><i class="fa fa-th-list mr-2" aria-hidden="true"></i>
-View All Gift Cards</button>
+      <img src="assets/images/loader.svg" alt="loader" height="60px" class="card-num-loader" id="card-num-loader">
+      <button type="button" class="btn btn-light list-btn" data-toggle="modal" data-target="#cards-modal" id="list-cards-btn"><i class="fa fa-th-list mr-2" aria-hidden="true"></i>
+        View All Gift Cards</button>
+      <button type="button" class="btn btn-light lock-btn" id="lock-btn"><i class="fa fa-lock mr-2" aria-hidden="true"></i>
+        Lock Application</button>
+    </div>
+
+    <div class="row w-100 card-container justify-content-center mb-3">
+      <div class="balance" id="balance">
+        €0
+      </div>
+      <div class="card-info card-no" id="card-no">Card No: </div>
+      <div class="card-info issued" id="date-issued">Date Issued: </div>
+      <div class="card-info owner" id="owner">Owner: </div>
+      <button type="button" class="btn btn-light list-btn" data-toggle="modal" data-target="#card-modal" id="list-card-btn"><i class="fa fa-plus mr-2" aria-hidden="true"></i>
+        Edit Balance</button>
+      <button type="button" class="btn btn-light lock-btn" id="back-btn"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>
+        Go Back</button>
     </div>
   </div>
-
 
   <div class="footer">
     <h3 id="version">Version: 1.0.0</h3>
   </div>
 
-  <div class="modal fade" id="cards-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal fade cards-modal" id="cards-modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title grey" id="cards-modal-label">Gift Cards:</h5>
+          <h5 class="modal-title grey" id="cards-modal-label">All Gift Cards:</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="col-md-12 col-sm-12 d-flex justify-content-center">
-            <p> test</p>
+            <table id="all-cards-table">
+              <tr>
+                <th>Card Number</th>
+                <th>Balance</th>
+                <th>Owner</th>
+                <th>Issued</th>
+                <th>Last Used</th>
+                <th>Edit</th>
+              </tr>
+            </table>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" id="cards-modal-close">Close</button>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="modal fade card-modal" id="card-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title grey" id="card-modal-label">Card</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12 col-sm-12 justify-content-center">
+            <div class="row w-100 justify-content-center m-0">
+<h6 class="modal-balance" id="modal-balance">Current Card Balance: €</h6>
+</div>
+<div class="row w-100 justify-content-center m-0">
+<form class="balance-form" id="balance-form">
+  <div class="form-group">
+    <label for="card-owner" class="mb-0">Card Owner:</label>
+    <input type="text" class="form-control edit-card-form" id="card-owner" placeholder="Full Name" aria-describedby="ownerHelp" minLength="5" maxLength="30" required>
+    <small id="ownerHelp" class="form-text text-muted">Name of the purchaser or the recipient</small>
+  </div>
+  <div class="form-group">
+    <label for="balance-amount" class="mb-0">Amount:</label>
+    <input type="number" class="form-control edit-card-form" id="balance-amount" step="0.01" placeholder="€1 - €1000" min="1" max="1000">
+    <small id="ownerHelp" class="form-text text-muted">Balance can be increased or decresed to take a payment</small>
+  </div>
+  <div class="form-check">
+  <input class="form-check-input" type="radio" name="balanceRadios" id="add-radio" value="plus" checked>
+  <label class="form-check-label" for="add-radio">
+    Add Money to Card (<i class="fa fa-plus mr-1" aria-hidden="true"></i>Increase balance)
+  </label>
+</div>
+<div class="form-check mt-2">
+  <input class="form-check-input" type="radio" name="balanceRadios" id="minus-radio" value="minus">
+  <label class="form-check-label" for="minus-radio">
+    Take Money From Card (<i class="fa fa-minus mr-1" aria-hidden="true"></i>Take a payment)
+  </label>
+</div>
+</form>
+</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" form="balance-form" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" id="card-modal-close">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="failure" id="failure"><i class="fa fa-exclamation-circle mr-2" aria-hidden="true"></i>Error connecting to database. Your changes may not be saved.</div>
+  <div class="success" id="success"><i class="fa fa-check mr-2" aria-hidden="true"></i>Changes succeffuly added to the database.</div>
+
   <script>
     if (typeof module === 'object') {
       window.module = module;

@@ -47,6 +47,15 @@ h3 {
   font-size: 12px;
 }
 
+h6 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .red {
   color: #cf0404;
 }
@@ -74,7 +83,7 @@ h3 {
 
 .login-container {
   height: 100%;
-  z-index: 102;
+  z-index: 105;
   background-color: #13322B;
 }
 
@@ -82,8 +91,35 @@ h3 {
   position: absolute;
   top: 116px;
   height: 100%;
-  z-index: 100;
+  z-index: 104;
+  margin: 0;
   background-color: #13322B;
+}
+
+.card-container {
+  position: absolute;
+  top: 116px;
+  height: 100%;
+  z-index: 103;
+  margin: 0;
+  background-color: #13322B;
+}
+
+.balance {
+  font-size: 100px;
+margin: 40px;
+height: 200px;
+}
+
+.balance:before {
+  content: "Current Balance:";
+  position: absolute;
+  top: 0;
+font-size: 30px;
+left: 0;
+width: 100%;
+text-align: center;
+color: #D7B56D;
 }
 
 .input-group {
@@ -104,6 +140,14 @@ h3 {
     outline: none;
     box-shadow: none;
     border: 1px solid #ced4da;
+  }
+
+  .edit-card-form {
+    padding: 25px;
+  }
+
+  .balance-form {
+    width: 70%;
   }
 
 .input-group-text {
@@ -139,10 +183,23 @@ h3 {
   top: 500px;
   padding: 20px;
   font-size: 20px;
+  width: 250px;
+}
+
+.lock-btn {
+  position: absolute;
+  top: 600px;
+  padding: 20px;
+  font-size: 20px;
+  width: 250px;
 }
 
 .btn:focus {
   box-shadow: none;
+}
+
+.card-modal .modal-header {
+  background-color:#D7B56D;
 }
 
 .modal-header, .modal-footer {
@@ -152,6 +209,7 @@ h3 {
 .rainbow {
   background: linear-gradient(to right, #6666ff, #02b4c4, #025dc4, #ff3399, #6666ff);
     background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
     animation: rainbow_animation 6s ease-in-out infinite;
     background-size: 400% 100%;
@@ -166,10 +224,163 @@ h3 {
     background-size: 400% 100%;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.failure {
+  background: rgba(217, 13, 40, .75);
+  backdrop-filter: blur(5px);
+  color: #ffffff;
+  padding: 15px;
+  width: 550px;
+  height: 70px;
+  display: none;
+  line-height: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  z-index: 9999;
+  position: fixed;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(-50%);
+  border-radius: 5px;
+}
+
+.success {
+  background: rgba(19, 145, 107, .75);
+  backdrop-filter: blur(5px);
+  color: #ffffff;
+  padding: 15px;
+  width: 450px;
+  height: 70px;
+  display: none;
+  line-height: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  z-index: 9999;
+  position: fixed;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(-50%);
+  border-radius: 5px;
+}
+
+.cards-modal, .card-modal {
+  color: #000000;
+}
+
+.cards-modal .modal-dialog {
+    width: 1200px;
+    max-width: 1200px;
+}
+
+.card-modal .modal-dialog {
+  width: 800px;
+  max-width: 800px;
+}
+
+.cards-modal .modal-body {
+    overflow-y: scroll;
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: 0.25em;
+    border-style: hidden;
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 0.25em;
+}
+
+table tr:first-child th:last-child {
+    border-top-right-radius: 0.25em;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 0.25em;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 0.25em;
+}
+
+td, tr, th {
+  overflow-x: scroll;
+  white-space: nowrap;
+  width: 300px;
+  max-width: 300px;
+  border: 1px solid #cccccc;
+  padding: 10px;
+}
+
+tr td:last-child, tr th:last-child {
+    width: 150px;
+    max-width: 150px;
+    text-align: center;
+}
+
+td::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-modal th {
+  background-color: #efe1c3;
+}
+
+.cards-modal td {
+  overflow-x: scroll;
+}
+
+.cards-modal tr:nth-child(even) {
+  background-color: #d4d4d4;
+  overflow-x: scroll;
+}
+
+.cards-modal tr:nth-child(odd) {
+  background-color: #f2f2f2;
+  overflow-x: scroll;
+}
+
+.btn-info {
+  background-color: #bd465a;
+  border: 1px solid #bd465a;
+}
+
+.btn-primary {
+  background-color: #13322B;
+  border: 1px solid #13322B;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #19A2B8;
+  border: 1px solid #19A2B8;
+  color: #ffffff;
+}
+
+.card-info {
+  position: absolute;
+    font-size: 20px;
+    left: 620px;
+}
+
+.card-no {
+  top: 250px;
+}
+
+.card-num-loader {
+  position: relative;
+    top: 150px;
+    margin-left: 20px;
+    visibility: hidden;
+}
+
+.issued {
+  top: 300px;
+}
+
+.owner {
+  top: 350px;
 }
 
 @keyframes rainbow_animation {

@@ -9,8 +9,8 @@ let win
 let sqlanywhere = require('sqlanywhere');
 let conn = sqlanywhere.createConnection();
 let conn_params = {
-  Host  : '192.168.1.180',
-  UserId  : 'DBA',
+  Host: '192.168.1.180',
+  UserId: 'DBA',
   Password: 'banana1'
 };
 
@@ -38,6 +38,7 @@ const createWindow = () => {
   });
 }
 
+  app.disableHardwareAcceleration();
 
 app.whenReady().then(() => {
   createWindow();
@@ -51,13 +52,47 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 })
 
-function getAllCards() {
-conn.connect(conn_params, function(err) {
-  if (err) throw err;
-  conn.exec('SELECT * FROM Member', function (err, result) {
-    if (err) throw err;
-    console.log(result);
-    conn.disconnect();
-  })
+ipcMain.on('card-input', (event, args) => {
+  console.log(args);
+  conn.connect(conn_params, function(err) {
+    if (err) {
+      win.webContents.send('failure');
+      console.log(err);
+      return;
+    } else {
+      conn.exec('SELECT STARTDATE, LASTVISIT, CARDNUM, AMOUNTDUE, COMPANYNAME FROM Member WHERE CARDNUM=' + args, function(err, result) {
+        if (err) {
+          win.webContents.send('failure');
+          console.log(err);
+          return;
+        } else {
+          win.webContents.send('card', result);
+          console.log(result);
+          conn.disconnect();
+        }
+      })
+    }
+  });
 });
+
+function getAllCards() {
+  conn.connect(conn_params, function(err) {
+    if (err) {
+      win.webContents.send('failure');
+      console.log(err);
+      return;
+    } else {
+      conn.exec('SELECT STARTDATE, LASTVISIT, CARDNUM, AMOUNTDUE, COMPANYNAME FROM Member ORDER BY MEMCODE DESC', function(err, result) {
+        if (err) {
+          win.webContents.send('failure');
+          console.log(err);
+          return;
+        } else {
+          win.webContents.send('allCards', result);
+          console.log(result);
+          conn.disconnect();
+        }
+      })
+    }
+  });
 }
