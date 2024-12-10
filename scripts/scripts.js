@@ -14,6 +14,7 @@ const cardOwner = document.getElementById("card-owner");
 const balanceEdit = document.getElementById("balance-amount");
 const addRadio = document.getElementById("add-radio");
 const minusRadio= document.getElementById("minus-radio");
+const cardsDownload= document.getElementById("cards-modal-download");
 const pin = 5145;
 
 let cardNumber = 0;
@@ -25,12 +26,16 @@ cardInput.addEventListener("input", checkInput);
 lockBtn.addEventListener("click", lockApplication);
 backBtn.addEventListener("click", showCardInput);
 listCardBtn.addEventListener("click", resetForm);
+cardsDownload.addEventListener("click", downloadList);
 cardInput.addEventListener("blur", focusInput);
 balanceForm.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log(balanceEdit);
   if (minusRadio.checked && balanceEdit.value > balance) {
-    alert("Balance insufficient for this transaction")
+    $("#balance-error").css('visibility', 'visible');
+    setTimeout(() => {
+      $("#balance-error").css('visibility', 'hidden');
+    }, 70000);
   }
 
   console.log(e);
@@ -70,7 +75,7 @@ function checkInput(e) {
     e.target.value = "";
     setTimeout(() => {
       $("#card-error").css('visibility', 'hidden');
-    }, 5000);
+    }, 7000);
   }
 }
 
@@ -109,6 +114,10 @@ function editCard() {
   $("#card-num-loader").css('visibility', 'visible');
   cardNumber = card;
   $("#cards-modal-close").click();
+}
+
+function downloadList() {
+  ipcRenderer.send('card-list-print');
 }
 
 ipcRenderer.on('appVersion', (event, messages) => {

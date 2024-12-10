@@ -163,6 +163,19 @@ color: #D7B56D;
   visibility: hidden;
 }
 
+.balance-error {
+  color: #FFFFFF;
+  background-color: #cf0404;
+  position: absolute;
+  bottom: -80px;
+  left: -3px;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  border-radius: 0.25em;
+  visibility: hidden;
+}
+
 .footer {
   position: absolute;
   left: 50%;
@@ -341,9 +354,9 @@ td::-webkit-scrollbar {
   overflow-x: scroll;
 }
 
-.btn-info {
-  background-color: #bd465a;
-  border: 1px solid #bd465a;
+.btn-info, .btn-info:focus {
+  background-color: #13322B;
+  border: 1px solid #13322B;
 }
 
 .btn-primary {
@@ -381,6 +394,10 @@ td::-webkit-scrollbar {
 
 .owner {
   top: 350px;
+}
+
+.soft {
+  opacity: 0.5;
 }
 
 @keyframes rainbow_animation {

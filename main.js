@@ -4,7 +4,10 @@ const {
   ipcMain
 } = require('electron');
 const path = require('path');
+const fs = require('fs');
+const downloadsFolder = require('downloads-folder');
 let win
+let cardList
 
 let sqlanywhere = require('sqlanywhere');
 let conn = sqlanywhere.createConnection();
@@ -38,7 +41,7 @@ const createWindow = () => {
   });
 }
 
-  app.disableHardwareAcceleration();
+app.disableHardwareAcceleration();
 
 app.whenReady().then(() => {
   createWindow();
@@ -52,8 +55,17 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 })
 
+ipcMain.on('card-list-print', () => {
+  let data = ""
+  cardList.forEach(function(card) {
+    data += JSON.stringify(card, null, 2) + "\n"
+  });
+  fs.writeFile(downloadsFolder() + '/gift-card-list.txt', data, function(err) {
+    if (err) throw err;
+  });
+});
+
 ipcMain.on('card-input', (event, args) => {
-  console.log(args);
   conn.connect(conn_params, function(err) {
     if (err) {
       win.webContents.send('failure');
@@ -89,6 +101,7 @@ function getAllCards() {
           return;
         } else {
           win.webContents.send('allCards', result);
+          cardList = result;
           console.log(result);
           conn.disconnect();
         }

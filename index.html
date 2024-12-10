@@ -92,6 +92,7 @@
           </div>
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-info" id="cards-modal-download"><i class="fa fa-download mr-2" aria-hidden="true"></i>Download as .txt File</button>
           <button type="button" class="btn btn-info" data-dismiss="modal" id="cards-modal-close">Close</button>
         </div>
       </div>
@@ -127,13 +128,13 @@
   <div class="form-check">
   <input class="form-check-input" type="radio" name="balanceRadios" id="add-radio" value="plus" checked>
   <label class="form-check-label" for="add-radio">
-    Add Money to Card (<i class="fa fa-plus mr-1" aria-hidden="true"></i>Increase balance)
+    Add Money to Card (<i class="fa fa-plus mr-1 soft" aria-hidden="true"></i>Increase balance)
   </label>
 </div>
 <div class="form-check mt-2">
   <input class="form-check-input" type="radio" name="balanceRadios" id="minus-radio" value="minus">
   <label class="form-check-label" for="minus-radio">
-    Take Money From Card (<i class="fa fa-minus mr-1" aria-hidden="true"></i>Take a payment)
+    Take Money From Card (<i class="fa fa-minus mr-1 soft" aria-hidden="true"></i>Take a payment)
   </label>
 </div>
 </form>
@@ -141,6 +142,8 @@
           </div>
         </div>
         <div class="modal-footer">
+          <h2 class="balance-error" id="balance-error"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Value to remove cannot exceed balance!</h2>
+
           <button type="submit" form="balance-form" class="btn btn-primary">Submit</button>
           <button type="button" class="btn btn-info" data-dismiss="modal" id="card-modal-close">Cancel</button>
         </div>
