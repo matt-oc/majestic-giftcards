@@ -7,6 +7,9 @@ electron 5.0.13
 npm i --ignore-scripts
 node_modules/.bin/electron-rebuild v 5.0.3
 
+npm run build on windows
+windows build slightly different (direct path to downloads rather than npm downloads module)
+
 sql client is needed
 https://github.com/sqlanywhere/node-sqlanywhere/issues/26
 https://wiki.scn.sap.com/wiki/plugins/servlet/mobile?contentId=448478814#content/view/448478814

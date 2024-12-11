@@ -327,6 +327,10 @@ td, tr, th {
   padding: 10px;
 }
 
+th {
+  overflow-x: hidden!important;
+}
+
 tr td:last-child, tr th:last-child {
   width: 150px;
   max-width: 150px;
