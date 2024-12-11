@@ -154,7 +154,7 @@ ipcMain.on('update-balance', (event, args) => {
             conn.commit();
             if (affectedRows > 0) {
               win.webContents.send('success');
-              downloadList();
+              updateAllCards();
             }
             conn.disconnect();
           }
@@ -206,6 +206,27 @@ function getAllCards() {
           win.webContents.send('allCards', result);
           cardList = result;
           console.log(result);
+          conn.disconnect();
+        }
+      })
+    }
+  });
+}
+
+function updateAllCards() {
+  conn.connect(conn_params, function(err) {
+    if (err) {
+      win.webContents.send('failure');
+      console.log(err);
+      return;
+    } else {
+      conn.exec('SELECT STARTDATE, LASTVISIT, CARDNUM, AMOUNTDUE, COMPANYNAME FROM Member ORDER BY MEMCODE DESC', function(err, result) {
+        if (err) {
+          console.log(err);
+          return;
+        } else {
+          cardList = result;
+          downloadList();
           conn.disconnect();
         }
       })
