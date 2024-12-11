@@ -16,6 +16,7 @@ const balanceEdit = document.getElementById("balance-amount");
 const addRadio = document.getElementById("add-radio");
 const minusRadio = document.getElementById("minus-radio");
 const cardsDownload = document.getElementById("cards-modal-download");
+const cardsModalClose = document.getElementById("cards-modal-close");
 const pin = 5145;
 
 let cardNumber = 0;
@@ -30,6 +31,7 @@ backBtn.addEventListener("click", showCardInput);
 editBalanceBtn.addEventListener("click", resetForm);
 cardsDownload.addEventListener("click", downloadList);
 cardInput.addEventListener("blur", focusInput);
+cardsModalClose.addEventListener("click", focusInput);
 
 balanceForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -90,7 +92,10 @@ function checkInput(e) {
 
 function focusInput() {
   if ($("#login-container").is(':hidden') && $("#card-swipe-container").is(':visible')) {
-    $("#card-input").focus();
+    setTimeout(function() {
+      $("#card-input").focus();
+    }, 1000);
+
   } else {
     $("#card-input").blur();
   }
@@ -193,9 +198,7 @@ ipcRenderer.on('card', (event, messages) => {
     $("#card-no").append(messages[0].CARDNUM);
     $("#date-issued").append(((messages[0].STARTDATE != null && messages[0].STARTDATE.length > 9) ? messages[0].STARTDATE.substring(0, 10) : 'Blank'));
     $("#owner").append(((messages[0].COMPANYNAME != null && messages[0].COMPANYNAME.length > 0) ? messages[0].COMPANYNAME : 'Blank'));
-    if (messages[0].AMOUNTDUE != 0) {
-      $("#balance").text("€ " + Math.abs(messages[0].AMOUNTDUE));
-    }
+    $("#balance").text("€ " + Math.abs(messages[0].AMOUNTDUE));
   }
   $("#card-swipe-container").hide();
   $("#card-input").blur();

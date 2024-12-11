@@ -1,6 +1,6 @@
 # majestic-giftcards
 
-Made in Node v12.13.0
+Made in Node v12.3.0
 Python v3.09
 electron 5.0.13
 
@@ -9,6 +9,8 @@ node_modules/.bin/electron-rebuild v 5.0.3
 
 npm run build on windows
 windows build slightly different (direct path to downloads rather than npm downloads module)
+
+server must be 192.168.1.180 static
 
 sql client is needed
 https://github.com/sqlanywhere/node-sqlanywhere/issues/26

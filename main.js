@@ -5,7 +5,8 @@ const {
 } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const downloadsFolder = require('downloads-folder');
+//const downloadsFolder = require('downloads-folder');
+let downloadsFolder = process.env.USERPROFILE + "/Downloads";
 let win;
 let cardList;
 let currentCard = [];
@@ -217,7 +218,12 @@ function downloadList() {
   cardList.forEach(function(card) {
     data += JSON.stringify(card, null, 2) + "\n"
   });
-  fs.writeFile(downloadsFolder() + '/gift-card-backup.txt', data, function(err) {
-    if (err) throw err;
+  fs.writeFile(downloadsFolder + '/gift-card-backup.txt', data, function(err) {
+    if (err) {
+      console.log(err);
+      return;
+    } else {
+      win.webContents.send('downloadSuccess');
+    }
   });
 }

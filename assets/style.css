@@ -187,13 +187,13 @@ h6 {
 .lock-logo {
   position: absolute;
   font-size: 200px !important;
-  bottom: 300px;
+  bottom: 25vh;
   opacity: 0.1;
 }
 
 .list-btn {
   position: absolute;
-  top: 500px;
+  top: 50vh;
   padding: 20px;
   font-size: 20px;
   width: 250px;
@@ -201,7 +201,7 @@ h6 {
 
 .lock-btn {
   position: absolute;
-  top: 600px;
+  top: 60vh;
   padding: 20px;
   font-size: 20px;
   width: 250px;
