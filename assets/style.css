@@ -258,7 +258,7 @@ h6 {
 }
 
 .success {
-  background: rgba(19, 145, 107, .95);
+  background: rgba(19, 145, 107, 1);
   backdrop-filter: blur(5px);
   color: #ffffff;
   padding: 15px;
@@ -275,6 +275,10 @@ h6 {
   bottom: 100px;
   transform: translateX(-50%);
   border-radius: 5px;
+}
+
+#download-success {
+  z-index: 9998;
 }
 
 .cards-modal, .card-modal {
