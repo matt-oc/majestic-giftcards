@@ -115,6 +115,7 @@ ipcMain.on('update-balance', (event, args) => {
           if (err) {
             win.webContents.send('failure');
             console.log(err);
+            conn.disconnect();
             return;
           } else {
             console.log(affectedRows);
@@ -142,11 +143,13 @@ ipcMain.on('update-balance', (event, args) => {
       if (err) {
         win.webContents.send('failure');
         console.log(err);
+        console.log("fail outside");
         return;
       } else {
         conn.exec('UPDATE Member SET COMPANYNAME = ?, AMOUNTDUE = ? WHERE CARDNUM = ?', [cardOwner, balance, cardNumber], function(err, affectedRows) {
           if (err) {
             win.webContents.send('failure');
+            conn.disconnect();
             console.log(err);
             return;
           } else {
@@ -154,14 +157,22 @@ ipcMain.on('update-balance', (event, args) => {
             conn.commit();
             if (affectedRows > 0) {
               win.webContents.send('success');
-              updateAllCards();
+              conn.disconnect(function(err) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  setTimeout(function() {
+                    updateAllCardsList();
+                  }, 2000);
+                }
+              });
+            } else {
+              conn.disconnect();
             }
-            conn.disconnect();
           }
         })
       }
     });
-
   }
 });
 
@@ -180,6 +191,7 @@ function getLastMemcode() {
         if (err) {
           win.webContents.send('failure');
           console.log(err);
+          conn.disconnect();
           return;
         } else {
           lastMemcode = result[0].MEMCODE;
@@ -201,6 +213,7 @@ function getAllCards() {
         if (err) {
           win.webContents.send('failure');
           console.log(err);
+          conn.disconnect();
           return;
         } else {
           win.webContents.send('allCards', result);
@@ -213,19 +226,20 @@ function getAllCards() {
   });
 }
 
-function updateAllCards() {
+function updateAllCardsList() {
   conn.connect(conn_params, function(err) {
     if (err) {
-      win.webContents.send('failure');
       console.log(err);
       return;
     } else {
       conn.exec('SELECT STARTDATE, LASTVISIT, CARDNUM, AMOUNTDUE, COMPANYNAME FROM Member ORDER BY MEMCODE DESC', function(err, result) {
         if (err) {
           console.log(err);
+          conn.disconnect();
           return;
         } else {
           cardList = result;
+          console.log(result);
           downloadList();
           conn.disconnect();
         }
@@ -233,6 +247,7 @@ function updateAllCards() {
     }
   });
 }
+
 
 function downloadList() {
   let data = ""
