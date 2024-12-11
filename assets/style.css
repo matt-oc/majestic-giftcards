@@ -45,6 +45,7 @@ h2 {
 
 h3 {
   font-size: 12px;
+  text-align: center;
 }
 
 h6 {
@@ -76,9 +77,8 @@ h6 {
   height: 100px;
 }
 
-
 .gift-card-icon {
-  font-size: 37px!important;
+  font-size: 37px !important;
 }
 
 .login-container {
@@ -107,19 +107,19 @@ h6 {
 
 .balance {
   font-size: 100px;
-margin: 40px;
-height: 200px;
+  margin: 40px;
+  height: 200px;
 }
 
 .balance:before {
   content: "Current Balance:";
   position: absolute;
   top: 0;
-font-size: 30px;
-left: 0;
-width: 100%;
-text-align: center;
-color: #D7B56D;
+  font-size: 30px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #D7B56D;
 }
 
 .input-group {
@@ -131,31 +131,31 @@ color: #D7B56D;
 .form-control {
   padding: 40px;
   font-size: 20px;
-  border-top-right-radius: .25rem!important;
-  border-bottom-right-radius: .25rem!important;
+  border-top-right-radius: .25rem !important;
+  border-bottom-right-radius: .25rem !important;
 }
 
 .form-control:focus {
-    background-color: #efe1c3;
-    outline: none;
-    box-shadow: none;
-    border: 1px solid #ced4da;
-  }
+  background-color: #efe1c3;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #ced4da;
+}
 
-  .edit-card-form {
-    padding: 25px;
-  }
+.edit-card-form {
+  padding: 25px;
+}
 
-  .balance-form {
-    width: 70%;
-  }
+.balance-form {
+  width: 70%;
+}
 
 .input-group-text {
   font-size: 20px;
 }
 
 .password-error {
-  color: #cf0404;
+  color: rgba(217, 13, 40, .95);
   position: absolute;
   bottom: -60px;
   width: 100%;
@@ -165,7 +165,7 @@ color: #D7B56D;
 
 .balance-error {
   color: #FFFFFF;
-  background-color: #cf0404;
+  background-color: rgba(217, 13, 40, .95);
   position: absolute;
   bottom: -80px;
   left: -3px;
@@ -186,7 +186,7 @@ color: #D7B56D;
 
 .lock-logo {
   position: absolute;
-  font-size: 200px!important;
+  font-size: 200px !important;
   bottom: 300px;
   opacity: 0.1;
 }
@@ -212,7 +212,7 @@ color: #D7B56D;
 }
 
 .card-modal .modal-header {
-  background-color:#D7B56D;
+  background-color: #D7B56D;
 }
 
 .modal-header, .modal-footer {
@@ -221,24 +221,24 @@ color: #D7B56D;
 
 .rainbow {
   background: linear-gradient(to right, #6666ff, #02b4c4, #025dc4, #ff3399, #6666ff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: rainbow_animation 6s ease-in-out infinite;
-    background-size: 400% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: rainbow_animation 6s ease-in-out infinite;
+  background-size: 400% 100%;
 }
 
 .dark-rainbow {
   background: linear-gradient(to right, #1d242b, #1d1921, #000000, #D7B56D, #1d242b);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: rainbow_animation 6s ease-in-out infinite;
-    background-size: 400% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: rainbow_animation 6s ease-in-out infinite;
+  background-size: 400% 100%;
 }
 
 .failure {
-  background: rgba(217, 13, 40, .75);
+  background: rgba(217, 13, 40, .95);
   backdrop-filter: blur(5px);
   color: #ffffff;
   padding: 15px;
@@ -258,7 +258,7 @@ color: #D7B56D;
 }
 
 .success {
-  background: rgba(19, 145, 107, .75);
+  background: rgba(19, 145, 107, .95);
   backdrop-filter: blur(5px);
   color: #ffffff;
   padding: 15px;
@@ -282,8 +282,8 @@ color: #D7B56D;
 }
 
 .cards-modal .modal-dialog {
-    width: 1200px;
-    max-width: 1200px;
+  width: 1200px;
+  max-width: 1200px;
 }
 
 .card-modal .modal-dialog {
@@ -292,29 +292,30 @@ color: #D7B56D;
 }
 
 .cards-modal .modal-body {
-    overflow-y: scroll;
+  overflow-y: scroll;
+  max-height: 70vh;
 }
 
 table {
-    border-collapse: collapse;
-    border-radius: 0.25em;
-    border-style: hidden;
+  border-collapse: collapse;
+  border-radius: 0.25em;
+  border-style: hidden;
 }
 
 table tr:first-child th:first-child {
-    border-top-left-radius: 0.25em;
+  border-top-left-radius: 0.25em;
 }
 
 table tr:first-child th:last-child {
-    border-top-right-radius: 0.25em;
+  border-top-right-radius: 0.25em;
 }
 
 table tr:last-child td:first-child {
-    border-bottom-left-radius: 0.25em;
+  border-bottom-left-radius: 0.25em;
 }
 
 table tr:last-child td:last-child {
-    border-bottom-right-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
 }
 
 td, tr, th {
@@ -327,9 +328,9 @@ td, tr, th {
 }
 
 tr td:last-child, tr th:last-child {
-    width: 150px;
-    max-width: 150px;
-    text-align: center;
+  width: 150px;
+  max-width: 150px;
+  text-align: center;
 }
 
 td::-webkit-scrollbar {
@@ -371,10 +372,16 @@ td::-webkit-scrollbar {
   color: #ffffff;
 }
 
+.btn-primary:focus {
+  background-color: #13322B;
+  border: 1px solid #13322B;
+  color: #ffffff;
+}
+
 .card-info {
   position: absolute;
-    font-size: 20px;
-    left: 620px;
+  font-size: 20px;
+  left: 620px;
 }
 
 .card-no {
@@ -383,9 +390,9 @@ td::-webkit-scrollbar {
 
 .card-num-loader {
   position: relative;
-    top: 150px;
-    margin-left: 20px;
-    visibility: hidden;
+  top: 150px;
+  margin-left: 20px;
+  visibility: hidden;
 }
 
 .issued {
@@ -401,11 +408,11 @@ td::-webkit-scrollbar {
 }
 
 @keyframes rainbow_animation {
-    0%,100% {
-        background-position: 0 0;
-    }
+  0%, 100% {
+    background-position: 0 0;
+  }
 
-    50% {
-        background-position: 100% 0;
-    }
+  50% {
+    background-position: 100% 0;
+  }
 }

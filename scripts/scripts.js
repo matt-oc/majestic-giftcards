@@ -8,44 +8,53 @@ const cardInput = document.getElementById("card-input");
 const lockBtn = document.getElementById("lock-btn");
 const allCardsTable = document.getElementById("all-cards-table");
 const backBtn = document.getElementById("back-btn");
-const listCardBtn = document.getElementById("list-card-btn");
+const listCardBtn = document.getElementById("list-cards-btn");
+const editBalanceBtn = document.getElementById("edit-balance-btn");
 const balanceForm = document.getElementById("balance-form");
 const cardOwner = document.getElementById("card-owner");
 const balanceEdit = document.getElementById("balance-amount");
 const addRadio = document.getElementById("add-radio");
-const minusRadio= document.getElementById("minus-radio");
-const cardsDownload= document.getElementById("cards-modal-download");
+const minusRadio = document.getElementById("minus-radio");
+const cardsDownload = document.getElementById("cards-modal-download");
 const pin = 5145;
 
 let cardNumber = 0;
 let elements = "";
 let balance = 0;
+let currentCard = [];
 
-password.addEventListener("input", checkValue);
+password.addEventListener("input", checkPin);
 cardInput.addEventListener("input", checkInput);
 lockBtn.addEventListener("click", lockApplication);
 backBtn.addEventListener("click", showCardInput);
-listCardBtn.addEventListener("click", resetForm);
+editBalanceBtn.addEventListener("click", resetForm);
 cardsDownload.addEventListener("click", downloadList);
 cardInput.addEventListener("blur", focusInput);
+
 balanceForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log(balanceEdit);
   if (minusRadio.checked && balanceEdit.value > balance) {
     $("#balance-error").css('visibility', 'visible');
     setTimeout(() => {
       $("#balance-error").css('visibility', 'hidden');
-    }, 70000);
+    }, 7000);
+  } else {
+    if (addRadio.checked) {
+      ipcRenderer.send('update-balance', [cardNumber, balanceEdit.value, cardOwner.value, addRadio.value]);
+    } else {
+      ipcRenderer.send('update-balance', [cardNumber, balanceEdit.value, cardOwner.value, minusRadio.value]);
+    }
   }
-
-  console.log(e);
 });
 
-function checkValue(e) {
+function checkPin(e) {
   if (e.target.value == pin) {
+    $("#all-cards-table").find("tr:gt(0)").remove();
+    ipcRenderer.send('get-all-cards');
     $("#login-container").hide();
     $("#card-input").focus();
     e.target.value = "";
+
   } else if (e.target.value.length == 4) {
     $("#password-error").css('visibility', 'visible');
     e.target.value = "";
@@ -89,6 +98,9 @@ function focusInput() {
 
 function resetForm() {
   balanceForm.reset();
+  if (currentCard.length > 0 && currentCard[0].COMPANYNAME != null && currentCard[0].COMPANYNAME.length > 0) {
+    cardOwner.value = currentCard[0].COMPANYNAME;
+  }
 }
 
 function lockApplication() {
@@ -106,6 +118,8 @@ function showCardInput() {
   $("#date-issued").text("Date Issued: ");
   $("#owner").text("Owner: ");
   $("#balance").text("€ 0");
+  $("#all-cards-table").find("tr:gt(0)").remove();
+  ipcRenderer.send('get-all-cards');
 }
 
 function editCard() {
@@ -117,7 +131,21 @@ function editCard() {
 }
 
 function downloadList() {
-  ipcRenderer.send('card-list-print');
+  ipcRenderer.send('card-list-download');
+  $("#download-success").show();
+  setTimeout(() => {
+    $("#download-success").hide();
+  }, "6000")
+}
+
+function renderCards(messages) {
+  for (let i = 0; i < messages.length; i++) {
+    $("#all-cards-table").append('<tr><td>' + messages[i].CARDNUM + '</td><td>€ ' + Math.abs(messages[i].AMOUNTDUE) + '</td><td>' + ((messages[i].COMPANYNAME != null && messages[i].COMPANYNAME.length > 0) ? messages[i].COMPANYNAME : 'Null') + '</td><td>' + ((messages[i].STARTDATE != null && messages[i].STARTDATE.length > 9) ? messages[i].STARTDATE.substring(0, 10) : 'Null') + '</td><td>' + ((messages[i].LASTVISIT != null && messages[i].LASTVISIT.length > 9) ? messages[i].LASTVISIT.substring(0, 10) : 'Null') + '</td><td><button type="button" class="btn btn-info edit" data-card=' + messages[i].CARDNUM + '><i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit</button></td></tr>');
+  }
+  elements = $(".edit");
+  for (let el of elements) {
+    el.addEventListener("click", editCard);
+  }
 }
 
 ipcRenderer.on('appVersion', (event, messages) => {
@@ -132,34 +160,36 @@ ipcRenderer.on('failure', (event, messages) => {
 })
 
 ipcRenderer.on('success', (event, messages) => {
+  ipcRenderer.send('card-input', cardNumber);
   $("#success").show();
+  $("#card-modal-close").click();
   setTimeout(() => {
     $("#success").hide();
   }, "6000")
 })
 
 ipcRenderer.on('allCards', (event, messages) => {
-  for (let i = 0; i < messages.length; i++) {
-    $("#all-cards-table").append('<tr><td>' + messages[i].CARDNUM + '</td><td>€ ' + Math.abs(messages[i].AMOUNTDUE) + '</td><td>' + ((messages[i].COMPANYNAME != null && messages[i].COMPANYNAME.length > 0) ? messages[i].COMPANYNAME : 'Null') + '</td><td>' + ((messages[i].STARTDATE != null && messages[i].STARTDATE.length > 9) ? messages[i].STARTDATE.substring(0, 10) : 'Null') + '</td><td>' + ((messages[i].LASTVISIT != null && messages[i].LASTVISIT.length > 9) ? messages[i].LASTVISIT.substring(0, 10) : 'Null') + '</td><td><button type="button" class="btn btn-info edit" data-card=' + messages[i].CARDNUM + '><i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit</button></td></tr>');
-  }
-  elements = $(".edit");
-  for (let el of elements) {
-    el.addEventListener("click", editCard);
-  }
+  renderCards(messages);
 })
 
 ipcRenderer.on('card', (event, messages) => {
+  currentCard = messages;
   $("#card-num-loader").css('visibility', 'hidden');
-    $("#card-modal-label").html("Card Number: <span class='bold'>" + cardNumber + "</span>");
+  $("#card-modal-label").html("Card Number: <span class='bold'>" + cardNumber + "</span>");
+
+  $("#modal-balance").text("€ ");
+  $("#card-no").text("Card No: ");
+  $("#date-issued").text("Date Issued: ");
+  $("#owner").text("Owner: ");
 
   if (messages.length == 0) {
-      $("#modal-balance").append(0);
+    $("#modal-balance").append(0);
     $("#card-no").append(cardNumber);
     $("#date-issued").append("Blank Card");
     $("#owner").append("Blank Card");
   } else {
     balance = Math.abs(messages[0].AMOUNTDUE);
-      $("#modal-balance").append(Math.abs(messages[0].AMOUNTDUE));
+    $("#modal-balance").append(Math.abs(messages[0].AMOUNTDUE));
     $("#card-no").append(messages[0].CARDNUM);
     $("#date-issued").append(((messages[0].STARTDATE != null && messages[0].STARTDATE.length > 9) ? messages[0].STARTDATE.substring(0, 10) : 'Blank'));
     $("#owner").append(((messages[0].COMPANYNAME != null && messages[0].COMPANYNAME.length > 0) ? messages[0].COMPANYNAME : 'Blank'));

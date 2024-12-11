@@ -6,7 +6,7 @@
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net">
 
-  <title>Login</title>
+  <title>Majestic Hotel Gift Card Manager</title>
 
   <link rel="stylesheet" href="bootstrap/bootstrap-4.6.2-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/style.css">
@@ -57,7 +57,7 @@
       <div class="card-info card-no" id="card-no">Card No: </div>
       <div class="card-info issued" id="date-issued">Date Issued: </div>
       <div class="card-info owner" id="owner">Owner: </div>
-      <button type="button" class="btn btn-light list-btn" data-toggle="modal" data-target="#card-modal" id="list-card-btn"><i class="fa fa-plus mr-2" aria-hidden="true"></i>
+      <button type="button" class="btn btn-light list-btn" data-toggle="modal" data-target="#card-modal" id="edit-balance-btn"><i class="fa fa-plus mr-2" aria-hidden="true"></i>
         Edit Balance</button>
       <button type="button" class="btn btn-light lock-btn" id="back-btn"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>
         Go Back</button>
@@ -65,6 +65,7 @@
   </div>
 
   <div class="footer">
+    <h3>Note: Automatic backups are saved to the downloads folder</h3>
     <h3 id="version">Version: 1.0.0</h3>
   </div>
 
@@ -111,34 +112,34 @@
         <div class="modal-body">
           <div class="col-md-12 col-sm-12 justify-content-center">
             <div class="row w-100 justify-content-center m-0">
-<h6 class="modal-balance" id="modal-balance">Current Card Balance: €</h6>
-</div>
-<div class="row w-100 justify-content-center m-0">
-<form class="balance-form" id="balance-form">
-  <div class="form-group">
-    <label for="card-owner" class="mb-0">Card Owner:</label>
-    <input type="text" class="form-control edit-card-form" id="card-owner" placeholder="Full Name" aria-describedby="ownerHelp" minLength="5" maxLength="30" required>
-    <small id="ownerHelp" class="form-text text-muted">Name of the purchaser or the recipient</small>
-  </div>
-  <div class="form-group">
-    <label for="balance-amount" class="mb-0">Amount:</label>
-    <input type="number" class="form-control edit-card-form" id="balance-amount" step="0.01" placeholder="€1 - €1000" min="1" max="1000">
-    <small id="ownerHelp" class="form-text text-muted">Balance can be increased or decresed to take a payment</small>
-  </div>
-  <div class="form-check">
-  <input class="form-check-input" type="radio" name="balanceRadios" id="add-radio" value="plus" checked>
-  <label class="form-check-label" for="add-radio">
-    Add Money to Card (<i class="fa fa-plus mr-1 soft" aria-hidden="true"></i>Increase balance)
-  </label>
-</div>
-<div class="form-check mt-2">
-  <input class="form-check-input" type="radio" name="balanceRadios" id="minus-radio" value="minus">
-  <label class="form-check-label" for="minus-radio">
-    Take Money From Card (<i class="fa fa-minus mr-1 soft" aria-hidden="true"></i>Take a payment)
-  </label>
-</div>
-</form>
-</div>
+              <h6 class="modal-balance" id="modal-balance">Current Card Balance: €</h6>
+            </div>
+            <div class="row w-100 justify-content-center m-0">
+              <form class="balance-form" id="balance-form">
+                <div class="form-group">
+                  <label for="card-owner" class="mb-0">Card Owner:</label>
+                  <input type="text" class="form-control edit-card-form" id="card-owner" placeholder="Full Name" aria-describedby="ownerHelp" minLength="5" maxLength="30" required>
+                  <small id="ownerHelp" class="form-text text-muted">Name of the purchaser or the recipient</small>
+                </div>
+                <div class="form-group">
+                  <label for="balance-amount" class="mb-0">Amount:</label>
+                  <input type="number" class="form-control edit-card-form" id="balance-amount" step="0.01" placeholder="€1 - €1000" min="1" max="1000">
+                  <small id="ownerHelp" class="form-text text-muted">Balance can be increased or decresed to take a payment</small>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="balanceRadios" id="add-radio" value="plus" checked>
+                  <label class="form-check-label" for="add-radio">
+                    Add Money to Card (<i class="fa fa-plus mr-1 soft" aria-hidden="true"></i>Increase balance)
+                  </label>
+                </div>
+                <div class="form-check mt-2">
+                  <input class="form-check-input" type="radio" name="balanceRadios" id="minus-radio" value="minus">
+                  <label class="form-check-label" for="minus-radio">
+                    Take Money From Card (<i class="fa fa-minus mr-1 soft" aria-hidden="true"></i>Take a payment)
+                  </label>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -152,7 +153,8 @@
   </div>
 
   <div class="failure" id="failure"><i class="fa fa-exclamation-circle mr-2" aria-hidden="true"></i>Error connecting to database. Your changes may not be saved.</div>
-  <div class="success" id="success"><i class="fa fa-check mr-2" aria-hidden="true"></i>Changes succeffuly added to the database.</div>
+  <div class="success" id="success"><i class="fa fa-check mr-2" aria-hidden="true"></i>Changes successfully added to the database.</div>
+  <div class="success" id="download-success"><i class="fa fa-download mr-2" aria-hidden="true"></i>File saved to your downloads folder.</div>
 
   <script>
     if (typeof module === 'object') {
