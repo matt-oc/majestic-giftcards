@@ -42,9 +42,9 @@ balanceForm.addEventListener("submit", (e) => {
     }, 7000);
   } else {
     if (addRadio.checked) {
-      ipcRenderer.send('update-balance', [cardNumber, balanceEdit.value, cardOwner.value, addRadio.value]);
+      ipcRenderer.send('update-balance', [cardNumber, ((balanceEdit.value != null && balanceEdit.value != "") ? balanceEdit.value : 0), cardOwner.value, addRadio.value]);
     } else {
-      ipcRenderer.send('update-balance', [cardNumber, balanceEdit.value, cardOwner.value, minusRadio.value]);
+      ipcRenderer.send('update-balance', [cardNumber, ((balanceEdit.value != null && balanceEdit.value != "") ? balanceEdit.value : 0), cardOwner.value, minusRadio.value]);
     }
   }
 });
@@ -137,10 +137,6 @@ function editCard() {
 
 function downloadList() {
   ipcRenderer.send('card-list-download');
-  $("#download-success").show();
-  setTimeout(() => {
-    $("#download-success").hide();
-  }, "6000")
 }
 
 function renderCards(messages) {
@@ -175,6 +171,13 @@ ipcRenderer.on('success', (event, messages) => {
 
 ipcRenderer.on('allCards', (event, messages) => {
   renderCards(messages);
+})
+
+ipcRenderer.on('downloadSuccess', (event, messages) => {
+  $("#download-success").show();
+  setTimeout(() => {
+    $("#download-success").hide();
+  }, "6000")
 })
 
 ipcRenderer.on('card', (event, messages) => {

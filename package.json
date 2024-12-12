@@ -1,6 +1,6 @@
 {
   "name": "majestic-giftcards",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "App to integrate with Pixelpoint POS software for Gift Card management",
   "main": "main.js",
   "scripts": {

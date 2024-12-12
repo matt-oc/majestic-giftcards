@@ -201,7 +201,7 @@ h6 {
 
 .lock-btn {
   position: absolute;
-  top: 60vh;
+  top: 61vh;
   padding: 20px;
   font-size: 20px;
   width: 250px;
@@ -332,7 +332,7 @@ td, tr, th {
 }
 
 th {
-  overflow-x: hidden!important;
+  overflow-x: hidden !important;
 }
 
 tr td:last-child, tr th:last-child {

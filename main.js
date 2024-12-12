@@ -33,7 +33,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      devTools: true
+      devTools: false
     }
   })
   win.loadFile('index.html')
@@ -122,7 +122,15 @@ ipcMain.on('update-balance', (event, args) => {
             conn.commit();
             if (affectedRows > 0) {
               win.webContents.send('success');
-              downloadList();
+              conn.disconnect(function(err) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  setTimeout(function() {
+                    updateAllCardsList();
+                  }, 2000);
+                }
+              });
             }
             conn.disconnect();
           }
@@ -134,16 +142,15 @@ ipcMain.on('update-balance', (event, args) => {
     let balance = currentCard[0].AMOUNTDUE;
 
     if (operator == 'plus') {
-      balance = parseFloat(balance) - parseFloat(editAmount);
+      balance = parseFloat((parseFloat(balance) - parseFloat(editAmount)).toFixed(2));
     } else {
-      balance = parseFloat(balance) + parseFloat(editAmount);
+      balance = parseFloat((parseFloat(balance) + parseFloat(editAmount)).toFixed(2));
     }
 
     conn.connect(conn_params, function(err) {
       if (err) {
         win.webContents.send('failure');
         console.log(err);
-        console.log("fail outside");
         return;
       } else {
         conn.exec('UPDATE Member SET COMPANYNAME = ?, AMOUNTDUE = ? WHERE CARDNUM = ?', [cardOwner, balance, cardNumber], function(err, affectedRows) {
@@ -195,6 +202,7 @@ function getLastMemcode() {
           return;
         } else {
           lastMemcode = result[0].MEMCODE;
+          console.log("Memcode is: " + lastMemcode);
           conn.disconnect();
         }
       })
@@ -241,7 +249,15 @@ function updateAllCardsList() {
           cardList = result;
           console.log(result);
           downloadList();
-          conn.disconnect();
+          conn.disconnect(function(err) {
+            if (err) {
+              console.log(err);
+            } else {
+              setTimeout(function() {
+                getLastMemcode();
+              }, 2000);
+            }
+          });
         }
       })
     }
