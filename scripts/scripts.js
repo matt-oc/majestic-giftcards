@@ -141,7 +141,7 @@ function downloadList() {
 
 function renderCards(messages) {
   for (let i = 0; i < messages.length; i++) {
-    $("#all-cards-table").append('<tr><td>' + messages[i].CARDNUM + '</td><td>€ ' + Math.abs(messages[i].AMOUNTDUE) + '</td><td>' + ((messages[i].COMPANYNAME != null && messages[i].COMPANYNAME.length > 0) ? messages[i].COMPANYNAME : 'Null') + '</td><td>' + ((messages[i].STARTDATE != null && messages[i].STARTDATE.length > 9) ? messages[i].STARTDATE.substring(0, 10) : 'Null') + '</td><td>' + ((messages[i].LASTVISIT != null && messages[i].LASTVISIT.length > 9) ? messages[i].LASTVISIT.substring(0, 10) : 'Null') + '</td><td><button type="button" class="btn btn-info edit" data-card=' + messages[i].CARDNUM + '><i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit</button></td></tr>');
+    $("#all-cards-table").append('<tr><td>' + messages[i].CARDNUM + '</td><td>€ ' + Math.abs(messages[i].AMOUNTDUE).toFixed(2) + '</td><td>' + ((messages[i].COMPANYNAME != null && messages[i].COMPANYNAME.length > 0) ? messages[i].COMPANYNAME : 'Null') + '</td><td>' + ((messages[i].STARTDATE != null && messages[i].STARTDATE.length > 9) ? messages[i].STARTDATE.substring(0, 10) : 'Null') + '</td><td>' + ((messages[i].LASTVISIT != null && messages[i].LASTVISIT.length > 9) ? messages[i].LASTVISIT.substring(0, 10) : 'Null') + '</td><td><button type="button" class="btn btn-info edit" data-card=' + messages[i].CARDNUM + '><i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit</button></td></tr>');
   }
   elements = $(".edit");
   for (let el of elements) {
@@ -196,8 +196,8 @@ ipcRenderer.on('card', (event, messages) => {
     $("#date-issued").append("Blank Card");
     $("#owner").append("Blank Card");
   } else {
-    balance = Math.abs(messages[0].AMOUNTDUE);
-    $("#modal-balance").append(Math.abs(messages[0].AMOUNTDUE));
+    balance = Math.abs(messages[0].AMOUNTDUE).toFixed(2);
+    $("#modal-balance").append(balance);
     $("#card-no").append(messages[0].CARDNUM);
     $("#date-issued").append(((messages[0].STARTDATE != null && messages[0].STARTDATE.length > 9) ? messages[0].STARTDATE.substring(0, 10) : 'Blank'));
     $("#owner").append(((messages[0].COMPANYNAME != null && messages[0].COMPANYNAME.length > 0) ? messages[0].COMPANYNAME : 'Blank'));

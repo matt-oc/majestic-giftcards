@@ -20,3 +20,6 @@ add contents of this to bash profile and to zshrc:
 source /Applications/SQLAnywhere17/System/bin64/sa_config.sh
 
 pin 5145
+
+npm run start
+npm run build
