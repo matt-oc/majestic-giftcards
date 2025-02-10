@@ -201,7 +201,7 @@ ipcRenderer.on('card', (event, messages) => {
     $("#card-no").append(messages[0].CARDNUM);
     $("#date-issued").append(((messages[0].STARTDATE != null && messages[0].STARTDATE.length > 9) ? messages[0].STARTDATE.substring(0, 10) : 'Blank'));
     $("#owner").append(((messages[0].COMPANYNAME != null && messages[0].COMPANYNAME.length > 0) ? messages[0].COMPANYNAME : 'Blank'));
-    $("#balance").text("€ " + Math.abs(messages[0].AMOUNTDUE));
+    $("#balance").text("€ " + Math.abs(messages[0].AMOUNTDUE).toFixed(2));
   }
   $("#card-swipe-container").hide();
   $("#card-input").blur();
